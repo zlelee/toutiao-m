@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    test
+    <i class="toutiao toutiao-wode"></i>
     <router-view />
   </div>
 </template>
