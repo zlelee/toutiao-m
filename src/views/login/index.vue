@@ -18,7 +18,7 @@
       >
         <i slot="left-icon" class="toutiao toutiao-yanzhengma"></i>
         <template #button>
-          <van-button class="send-sms-btn" round size="small" type="default"
+          <van-button class="send-sms-btn" round size="small" type="default" native-type="button"
             >获取验证码</van-button
           >
         </template>
@@ -48,9 +48,8 @@ export default {
 
   methods: {
     async onSubmit () {
-      const user = this.user
       try {
-        const res = await login(user)
+        const res = await login(this.user)
         console.log('登陆成功', res)
       } catch (err) {
         if (err.response.stats === 400) {
@@ -70,8 +69,8 @@ export default {
     font-size: 37px;
   }
   .send-sms-btn {
+    width: 155px;
     height: 46px;
-    line-height: 46px;
     background-color: #ededed;
     font-size: 22px;
     color: #666;
