@@ -9,8 +9,7 @@
         clearable
         type="number"
         :rules="userFormRules.mobile"
-        maxlength="11"
-      >
+        maxlength="11">
         <i slot="left-icon" class="toutiao toutiao-shouji"></i>
       </van-field>
       <van-field
@@ -19,14 +18,12 @@
         placeholder="请输入验证码"
         type="number"
          maxlength="6"
-         :rules="userFormRules.code"
-      >
+         :rules="userFormRules.code">
         <i slot="left-icon" class="toutiao toutiao-yanzhengma"></i>
         <template #button>
           <van-count-down :time="1000 * 10" v-if="isCountDownShow" @finish="isCountDownShow = false" format="ss s"/>
           <van-button v-else class="send-sms-btn" round size="small" type="default" native-type="button"
-           @click="onSendSms" >获取验证码</van-button
-          >
+           @click="onSendSms" >获取验证码</van-button>
         </template>
       </van-field>
       <div class="login-btn-wrap">
@@ -42,7 +39,6 @@
 import { login, getSmsCode } from '@/api/user.js'
 export default {
   name: 'login',
-
   data () {
     return {
       user: {
@@ -79,6 +75,7 @@ export default {
         const { data } = await login(this.user)
         this.$toast.success('登录成功')
         this.$store.commit('setUser', data.data)
+        this.$router.push('/')
       } catch (err) {
         if (err.response.status === 400) {
           this.$toast.fail('手机号或验证码错误')
@@ -91,7 +88,7 @@ export default {
       try {
         await this.$refs.userForm.validate('mobile')
       } catch {
-        console.log('验证失败')
+        this.$toast.fail('验证失败')
       }
       this.isCountDownShow = true
       try {
@@ -105,7 +102,6 @@ export default {
         }
       }
     }
-
   }
 }
 </script>
