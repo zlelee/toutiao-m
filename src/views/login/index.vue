@@ -1,9 +1,9 @@
 <template>
   <div class="login-container">
     <van-nav-bar title="登录" class="page-nav-bar" />
-    <van-form @submit="onSubmit">
+    <van-form @submit="onSubmit" ref="userForm">
       <van-field
-        name="用户名"
+        name="mobile"
         placeholder="请输入手机号"
         v-model="user.mobile"
         clearable
@@ -15,7 +15,7 @@
       </van-field>
       <van-field
         v-model="user.code"
-        name="验证码"
+        name="code"
         placeholder="请输入验证码"
         type="number"
          maxlength="6"
@@ -24,7 +24,7 @@
         <i slot="left-icon" class="toutiao toutiao-yanzhengma"></i>
         <template #button>
           <van-button class="send-sms-btn" round size="small" type="default" native-type="button"
-            >获取验证码</van-button
+           @click="onSendSms" >获取验证码</van-button
           >
         </template>
       </van-field>
@@ -83,6 +83,13 @@ export default {
         } else {
           this.$toast.fail('登录失败')
         }
+      }
+    },
+    async onSendSms () {
+      try {
+        await this.$refs.userForm.validate('mobile')
+      } catch {
+        console.log('验证失败')
       }
     }
   }
