@@ -48,14 +48,19 @@ export default {
 
   methods: {
     async onSubmit () {
+      this.$toast.loading({
+        message: '登录中...',
+        forbidClick: true
+      })
       try {
         const res = await login(this.user)
-        console.log('登陆成功', res)
+        console.log(res)
+        this.$toast.success('登录成功')
       } catch (err) {
-        if (err.response.stats === 400) {
-          console.log('手机号或验证码错误')
+        if (err.response.status === 400) {
+          this.$toast.fail('手机号或验证码错误')
         } else {
-          console.log('登录失败')
+          this.$toast.fail('登录失败')
         }
       }
     }
