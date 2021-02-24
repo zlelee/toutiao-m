@@ -23,7 +23,8 @@
       >
         <i slot="left-icon" class="toutiao toutiao-yanzhengma"></i>
         <template #button>
-          <van-button class="send-sms-btn" round size="small" type="default" native-type="button"
+          <van-count-down :time="1000 * 10" v-if="isCountDownShow" @finish="isCountDownShow = false" format="ss s"/>
+          <van-button v-else class="send-sms-btn" round size="small" type="default" native-type="button"
            @click="onSendSms" >获取验证码</van-button
           >
         </template>
@@ -63,7 +64,8 @@ export default {
           pattern: /^\d{6}$/,
           message: '验证码格式不正确'
         }]
-      }
+      },
+      isCountDownShow: false
     }
   },
 
@@ -91,6 +93,7 @@ export default {
       } catch {
         console.log('验证失败')
       }
+      this.isCountDownShow = true
     }
   }
 }
@@ -104,6 +107,7 @@ export default {
   .send-sms-btn {
     width: 155px;
     height: 46px;
+    line-height: 46px;
     background-color: #ededed;
     font-size: 22px;
     color: #666;
