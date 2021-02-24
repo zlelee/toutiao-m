@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { login } from '@/api/user.js'
+import { login, getSmsCode } from '@/api/user.js'
 export default {
   name: 'login',
 
@@ -94,6 +94,16 @@ export default {
         console.log('验证失败')
       }
       this.isCountDownShow = true
+      try {
+        await getSmsCode(this.user.mobile)
+        this.$toast('发送成功')
+      } catch (err) {
+        if (err.response.status === 429) {
+          this.$toast('发送太频繁了，请稍后重试')
+        } else {
+          this.$toast('发送失败，请稍后重试')
+        }
+      }
     }
   }
 }
