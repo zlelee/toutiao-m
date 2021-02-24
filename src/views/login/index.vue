@@ -76,9 +76,9 @@ export default {
         forbidClick: true
       })
       try {
-        const res = await login(this.user)
-        console.log(res)
+        const { data } = await login(this.user)
         this.$toast.success('登录成功')
+        this.$store.commit('setUser', data.data)
       } catch (err) {
         if (err.response.status === 400) {
           this.$toast.fail('手机号或验证码错误')
@@ -105,6 +105,7 @@ export default {
         }
       }
     }
+
   }
 }
 </script>
