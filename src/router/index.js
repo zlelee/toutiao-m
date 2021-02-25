@@ -11,7 +11,6 @@ const routes = [
   },
   {
     path: '/',
-    name: 'layout',
     component: () => import('@/views/layout'),
     children: [
       { path: '/', component: () => import('@/views/home') }, // 默认子路由

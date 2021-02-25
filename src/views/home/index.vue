@@ -12,8 +12,10 @@ export default {
     return {
     }
   },
-
-  methods: {}
+  computed: {
+  },
+  methods: {
+  }
 }
 </script>
 
