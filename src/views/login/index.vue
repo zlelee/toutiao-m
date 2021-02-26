@@ -1,6 +1,8 @@
 <template>
   <div class="login-container">
-    <van-nav-bar title="登录" class="page-nav-bar" />
+    <van-nav-bar title="登录" class="page-nav-bar">
+      <van-icon name="cross" slot="left" @click="$router.back()" v-if="$route.query.redirect"/>
+    </van-nav-bar>
     <van-form @submit="onSubmit" ref="userForm">
       <van-field
         name="mobile"
