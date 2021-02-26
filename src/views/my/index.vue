@@ -1,7 +1,7 @@
 <template>
   <div class="my-container">
       <!-- 已登录 -->
-    <div class="header user-info">
+    <div v-if="user" class="header user-info">
       <div class="base-info">
         <div class="left">
           <van-image
@@ -37,7 +37,7 @@
     </div>
 
     <!-- 未登录头部 -->
-    <div class="header not-login">
+    <div v-else class="header not-login">
       <div class="login-btn" @click="$router.push({
         name: 'login',
         query: {
@@ -64,7 +64,7 @@
     <!-- Cell 单元格 -->
     <van-cell title="消息通知" is-link />
     <van-cell class="mb-9" title="小智同学" is-link />
-    <van-cell class="logout-cell" clickable title="退出登录" />
+    <van-cell v-if="user" class="logout-cell" clickable title="退出登录" />
   </div>
 </template>
 
