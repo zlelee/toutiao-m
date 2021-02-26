@@ -9,9 +9,16 @@
         size="small"
         round
         icon="search"
-      >搜索</van-button>
+        >搜索</van-button
+      >
     </van-nav-bar>
-    <!-- /导航栏 -->
+    <!-- 频道列表 -->
+    <van-tabs v-model="active" animated swipeable>
+      <van-tab title="标签 1">内容 1</van-tab>
+      <van-tab title="标签 2">内容 2</van-tab>
+      <van-tab title="标签 3">内容 3</van-tab>
+      <van-tab title="标签 4">内容 4</van-tab>
+    </van-tabs>
   </div>
 </template>
 
@@ -21,6 +28,7 @@ export default {
 
   data () {
     return {
+      active: 0
     }
   },
   computed: {
@@ -31,8 +39,9 @@ export default {
 </script>
 
 <style lang='less' scoped>
+// 当前组件中加了 scoped 对内部样式的修改需要加 /deep/，或者去掉 scoped
 .home-container {
-  /deep/.van-nav-bar__title {
+  /deep/ .van-nav-bar__title {
     max-width: unset;
   }
   .search-btn {
