@@ -23,15 +23,15 @@
         </div>
         <div class="data-item">
           <span class="count">10</span>
-          <span class="text">头条</span>
+          <span class="text">关注</span>
         </div>
         <div class="data-item">
           <span class="count">10</span>
-          <span class="text">头条</span>
+          <span class="text">粉丝</span>
         </div>
         <div class="data-item">
           <span class="count">10</span>
-          <span class="text">头条</span>
+          <span class="text">获赞</span>
         </div>
       </div>
     </div>
@@ -64,7 +64,7 @@
     <!-- Cell 单元格 -->
     <van-cell title="消息通知" is-link />
     <van-cell class="mb-9" title="小智同学" is-link />
-    <van-cell v-if="user" class="logout-cell" clickable title="退出登录" />
+    <van-cell v-if="user" class="logout-cell" @click="onLogout" clickable title="退出登录" />
   </div>
 </template>
 
@@ -78,7 +78,20 @@ export default {
     }
   },
 
-  methods: {},
+  methods: {
+    onLogout () {
+      this.$dialog.confirm({
+        title: '确认退出吗?'
+      })
+        .then(() => {
+          // on confirm
+          this.$store.commit('setUser', null)
+        })
+        .catch(() => {
+          // on cancel
+        })
+    }
+  },
 
   computed: {
     ...mapState(['user'])
