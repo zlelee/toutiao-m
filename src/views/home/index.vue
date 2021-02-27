@@ -14,15 +14,7 @@
     </van-nav-bar>
     <!-- 频道列表 -->
     <van-tabs class="channel-tabs" v-model="active" animated swipeable>
-      <van-tab title="标签 1">内容 1</van-tab>
-      <van-tab title="标签 2">内容 2</van-tab>
-      <van-tab title="标签 3">内容 3</van-tab>
-      <van-tab title="标签 4">内容 4</van-tab>
-      <van-tab title="标签 4">内容 4</van-tab>
-      <van-tab title="标签 4">内容 4</van-tab>
-      <van-tab title="标签 4">内容 4</van-tab>
-      <van-tab title="标签 4">内容 4</van-tab>
-      <van-tab title="标签 4">内容 4</van-tab>
+      <van-tab :title="channel.name" v-for="channel in channels" :key="channel.id">{{channel.name}}</van-tab>
       <div slot="nav-right" class="placeholder"></div>
       <div slot="nav-right" class="hamburger-btn">
         <i class="toutiao toutiao-gengduo"></i>
@@ -32,17 +24,31 @@
 </template>
 
 <script>
+import { getUserchannels } from '@/api/user'
 export default {
   name: 'Home',
 
   data () {
     return {
-      active: 0
+      active: 0,
+      channels: []
     }
   },
   computed: {
   },
   methods: {
+    async loadchannels () {
+      try {
+        const { data } = await getUserchannels()
+        console.log(data)
+        this.channels = data.data.channels
+      } catch (err) {
+        this.$toast('获取频道列表失败')
+      }
+    }
+  },
+  created () {
+    this.loadchannels()
   }
 }
 </script>
