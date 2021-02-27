@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="article-list">
     <!--
       List 列表组件：瀑布流滚动加载，用于展示长列表。
 
@@ -113,4 +113,9 @@ export default {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.article-list {
+  height: 79vh;
+  overflow-y: auto;
+}
+</style>
