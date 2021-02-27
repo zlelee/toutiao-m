@@ -25,8 +25,14 @@
       :finished="finished"
       finished-text="没有更多了"
       @load="onLoad"
+      :error.sync="error"
+      error-text="请求失败，点击重新加载"
     >
-      <van-cell v-for="(item, index) in list" :key="index" :title="item.title" />
+      <van-cell
+        v-for="(item, index) in list"
+        :key="index"
+        :title="item.title"
+      />
     </van-list>
   </div>
 </template>
@@ -46,11 +52,11 @@ export default {
       list: [], // 存储列表数据的数组
       loading: false, // 控制加载中 loading 状态
       finished: false, // 控制数据加载结束的状态
-      timestamp: null
+      timestamp: null,
+      error: false
     }
   },
-  created () {
-  },
+  created () {},
   methods: {
     async onLoad () {
       try {
@@ -59,22 +65,27 @@ export default {
           timestamp: this.timestamp || Date.now(), // 时间戳，请求新的推荐数据传当前的时间戳，请求历史推荐传指定的时间戳
           with_top: 1 // 是否包含置顶，进入页面第一次请求时要包含置顶文章，1-包含置顶，0-不包含
         })
+
         const { results } = data.data
         this.list.push(...results)
+
         this.loading = false
+        // 模拟失败
+        // if (Math.random() > 0.2) {
+        //   JSON.parse('sfsdfafa')
+        // }
         if (results.length) {
           this.timestamp = results.pre_timestamp
         } else {
           this.finished = true
         }
       } catch (err) {
-        console.log('获取失败', err)
+        this.loading = false
+        this.error = true
       }
     }
   }
 }
 </script>
 
-<style lang='less' scoped>
-
-</style>
+<style lang="less" scoped></style>
