@@ -13,7 +13,7 @@
       >
     </van-nav-bar>
     <!-- 频道列表 -->
-    <van-tabs class="channel-tabs" v-model="active" animated swipeable>
+    <van-tabs class="channel-tabs" v-model="active" animated swipeable swipe-threshold="3">
       <van-tab
         :title="channel.name"
         v-for="channel in channels"
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { getUserchannels } from '@/api/user'
+import { getUserChannels } from '@/api/user'
 import articleList from './components/articel-list'
 export default {
   name: 'Home',
@@ -48,7 +48,7 @@ export default {
   methods: {
     async loadchannels () {
       try {
-        const { data } = await getUserchannels()
+        const { data } = await getUserChannels()
         this.channels = data.data.channels
       } catch (err) {
         this.$toast('获取频道列表失败')
@@ -64,6 +64,7 @@ export default {
 <style lang="less" scoped>
 // 当前组件中加了 scoped 对内部样式的修改需要加 /deep/，或者去掉 scoped
 .home-container {
+  padding-bottom: 100px;
   /deep/ .van-nav-bar__title {
     max-width: unset;
   }
