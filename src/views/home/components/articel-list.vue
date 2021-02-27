@@ -21,10 +21,10 @@
         + 所有数据加载结束，finished 为 true，此时不会触发 load 事件
      -->
     <van-pull-refresh
-        v-model="isLoading"
-        @refresh="onRefresh"
-        :success-text="successText"
-        success-duration="1500"
+      v-model="isLoading"
+      @refresh="onRefresh"
+      :success-text="successText"
+      success-duration="1500"
     >
       <van-list
         v-model="loading"
@@ -34,11 +34,11 @@
         :error.sync="error"
         error-text="请求失败，点击重新加载"
       >
-        <van-cell
-          v-for="(item, index) in list"
-          :key="index"
-          :title="item.title"
-        />
+        <article-item
+        v-for="(item, index) in list"
+        :key="index"
+        :article="item"
+        ></article-item>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -46,6 +46,7 @@
 
 <script>
 import { getArticles } from '@/api/article-list'
+import articleItem from '@/components/article-item'
 export default {
   name: 'articleList',
   props: {
@@ -54,7 +55,7 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       list: [], // 存储列表数据的数组
       loading: false, // 控制加载中 loading 状态
@@ -65,9 +66,12 @@ export default {
       successText: '刷新成功'
     }
   },
-  created () {},
+  created() {},
+  components: {
+    articleItem
+  },
   methods: {
-    async onLoad () {
+    async onLoad() {
       try {
         const { data } = await getArticles({
           channel_id: this.channel.id,
@@ -93,7 +97,7 @@ export default {
         this.error = true
       }
     },
-    async onRefresh () {
+    async onRefresh() {
       try {
         const { data } = await getArticles({
           channel_id: this.channel.id,
