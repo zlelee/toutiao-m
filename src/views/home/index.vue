@@ -14,7 +14,14 @@
     </van-nav-bar>
     <!-- 频道列表 -->
     <van-tabs class="channel-tabs" v-model="active" animated swipeable>
-      <van-tab :title="channel.name" v-for="channel in channels" :key="channel.id">{{channel.name}}</van-tab>
+      <van-tab
+        :title="channel.name"
+        v-for="channel in channels"
+        :key="channel.id"
+        >
+      <article-list :channel="channel"></article-list>
+      </van-tab
+      >
       <div slot="nav-right" class="placeholder"></div>
       <div slot="nav-right" class="hamburger-btn">
         <i class="toutiao toutiao-gengduo"></i>
@@ -25,22 +32,23 @@
 
 <script>
 import { getUserchannels } from '@/api/user'
+import articleList from './components/articel-list'
 export default {
   name: 'Home',
-
+  components: {
+    articleList
+  },
   data () {
     return {
       active: 0,
       channels: []
     }
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     async loadchannels () {
       try {
         const { data } = await getUserchannels()
-        console.log(data)
         this.channels = data.data.channels
       } catch (err) {
         this.$toast('获取频道列表失败')
@@ -53,7 +61,7 @@ export default {
 }
 </script>
 
-<style lang='less' scoped>
+<style lang="less" scoped>
 // 当前组件中加了 scoped 对内部样式的修改需要加 /deep/，或者去掉 scoped
 .home-container {
   /deep/ .van-nav-bar__title {
