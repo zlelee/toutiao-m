@@ -1,14 +1,21 @@
 <template>
   <div class="article-item">
   <van-cell>
+    <!-- 文章标题 -->
     <div slot="title">{{article.title}}</div>
+
+    <!-- 详情 -->
     <div slot="label" class="label-info-wrap">
       <span>{{article.aut_name}}</span>
       <span>{{ article.comm_count }}评论</span>
       <span>{{ article.pubdate }}</span>
     </div>
-    <van-image v-if="article.cover.type===1" slot="default" :src="article.cover.images[0]">
+
+    <!-- 封面图片只有一张 -->
+    <van-image class="right-cover" v-if="article.cover.type===1" slot="default" :src="article.cover.images[0]">
     </van-image>
+
+    <!-- 封面图片有三张 -->
     <div v-if="article.cover.type===3" slot="label" class="cover-wrap">
      <div v-for="(item,i) in article.cover.images" :key="i"  class="cover-item">
        <van-image :src="item" class="cover-item-img"></van-image>
