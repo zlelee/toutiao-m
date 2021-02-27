@@ -1,6 +1,7 @@
 <template>
   <div>
-  <van-cell :title="article.title">
+  <van-cell>
+    <div slot="title">{{article.title}}</div>
     <div slot="label">
       <span>{{article.aut_name}}</span>
       <span>{{ article.comm_count }}评论</span>
