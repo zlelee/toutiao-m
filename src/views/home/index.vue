@@ -1,7 +1,7 @@
 <template>
   <div class="home-container">
     <!-- 导航栏 -->
-    <van-nav-bar class="page-nav-bar">
+    <van-nav-bar class="page-nav-bar" fixed>
       <van-button
         class="search-btn"
         slot="title"
@@ -13,15 +13,20 @@
       >
     </van-nav-bar>
     <!-- 频道列表 -->
-    <van-tabs class="channel-tabs" v-model="active" animated swipeable swipe-threshold="3">
+    <van-tabs
+      class="channel-tabs"
+      v-model="active"
+      animated
+      swipeable
+      swipe-threshold="3"
+    >
       <van-tab
         :title="channel.name"
         v-for="channel in channels"
         :key="channel.id"
-        >
-      <article-list :channel="channel"></article-list>
-      </van-tab
       >
+        <article-list :channel="channel"></article-list>
+      </van-tab>
       <div slot="nav-right" class="placeholder"></div>
       <div slot="nav-right" class="hamburger-btn">
         <i class="toutiao toutiao-gengduo"></i>
@@ -38,7 +43,7 @@ export default {
   components: {
     articleList
   },
-  data () {
+  data() {
     return {
       active: 0,
       channels: []
@@ -46,7 +51,7 @@ export default {
   },
   computed: {},
   methods: {
-    async loadchannels () {
+    async loadchannels() {
       try {
         const { data } = await getUserChannels()
         this.channels = data.data.channels
@@ -55,7 +60,7 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     this.loadchannels()
   }
 }
@@ -80,7 +85,10 @@ export default {
   }
   /deep/ .channel-tabs {
     .van-tabs__wrap {
-      height: 82px;
+      position: fixed;
+      top: 92px;
+      z-index: 2;
+      width: 100%;
     }
     // Tab 标签页
     .van-tab {
