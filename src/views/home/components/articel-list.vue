@@ -20,20 +20,27 @@
         + 在每次请求完毕后，需要手动将 loading 设置为 false，表示本次加载结束
         + 所有数据加载结束，finished 为 true，此时不会触发 load 事件
      -->
-    <van-list
-      v-model="loading"
-      :finished="finished"
-      finished-text="没有更多了"
-      @load="onLoad"
-      :error.sync="error"
-      error-text="请求失败，点击重新加载"
+    <van-pull-refresh
+        v-model="isLoading"
+        @refresh="onRefresh"
+        :success-text="successText"
+        success-duration="1500"
     >
-      <van-cell
-        v-for="(item, index) in list"
-        :key="index"
-        :title="item.title"
-      />
-    </van-list>
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+        :error.sync="error"
+        error-text="请求失败，点击重新加载"
+      >
+        <van-cell
+          v-for="(item, index) in list"
+          :key="index"
+          :title="item.title"
+        />
+      </van-list>
+    </van-pull-refresh>
   </div>
 </template>
 
@@ -53,7 +60,9 @@ export default {
       loading: false, // 控制加载中 loading 状态
       finished: false, // 控制数据加载结束的状态
       timestamp: null,
-      error: false
+      error: false,
+      isLoading: false,
+      successText: '刷新成功'
     }
   },
   created () {},
@@ -82,6 +91,22 @@ export default {
       } catch (err) {
         this.loading = false
         this.error = true
+      }
+    },
+    async onRefresh () {
+      try {
+        const { data } = await getArticles({
+          channel_id: this.channel.id,
+          timestamp: Date.now(), // 最新的时间戳
+          with_top: 1 // 是否包含置顶，进入页面第一次请求时要包含置顶文章，1-包含置顶，0-不包含
+        })
+        const { results } = data.data
+        this.list.unshift(...results)
+        this.isLoading = false
+        this.successText = `更新成功,共更新了${results.length}条`
+      } catch (err) {
+        this.isLoading = false
+        this.successText = '更新失败'
       }
     }
   }
