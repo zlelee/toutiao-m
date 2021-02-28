@@ -39,17 +39,21 @@
       position="bottom"
       close-icon-position="top-left"
       :style="{ height: '100%' }"
-    />
+    >
+    <channel-edit/>
+    </van-popup>
   </div>
 </template>
 
 <script>
 import { getUserChannels } from '@/api/user'
 import articleList from './components/articel-list'
+import channelEdit from './components/channel-edit'
 export default {
   name: 'Home',
   components: {
-    articleList
+    articleList,
+    channelEdit
   },
   data() {
     return {
