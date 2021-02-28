@@ -26,10 +26,10 @@
     <van-grid class="recommend-grid" :gutter="10">
       <van-grid-item
         class="grid-item"
-        v-for="(channel, index) in 8"
+        v-for="(channel, index) in recommendChannels"
         :key="index"
         icon="plus"
-        text="文本"
+        :text="channel.name"
       >
       </van-grid-item>
     </van-grid>
@@ -70,6 +70,9 @@ export default {
     }
   },
   computed: {
+    recommendChannels() {
+      return this.allChannels.filter(channel => !this.myChannels.find(item => item.id === channel.id))
+    }
   }
 }
 </script>
