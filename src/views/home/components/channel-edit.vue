@@ -15,7 +15,7 @@
         :key="index"
         icon="clear"
       >
-      <span slot="text" class="text" :class="{ active: index=== active}">{{channel.name}}</span>
+      <span slot="text" class="text" :class="{ active: index === active }">{{channel.name}}</span>
       </van-grid-item>
     </van-grid>
     <!-- 频道推荐标题 -->
@@ -30,6 +30,7 @@
         :key="index"
         icon="plus"
         :text="channel.name"
+        @click="addChannel(channel)"
       >
       </van-grid-item>
     </van-grid>
@@ -67,6 +68,9 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    addChannel(channel) {
+      this.myChannels.push(channel)
     }
   },
   computed: {
