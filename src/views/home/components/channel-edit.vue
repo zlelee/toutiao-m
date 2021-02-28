@@ -13,9 +13,9 @@
         class="grid-item"
         v-for="(channel, index) in myChannels"
         :key="index"
-        :text="channel.name"
         icon="clear"
       >
+      <span slot="text" class="text" :class="{ active: index=== active}">{{channel.name}}</span>
       </van-grid-item>
     </van-grid>
     <!-- 频道推荐标题 -->
@@ -42,6 +42,10 @@ export default {
   props: {
     myChannels: {
       type: Array,
+      required: true
+    },
+    active: {
+      type: Number,
       required: true
     }
   },
