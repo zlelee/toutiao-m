@@ -35,9 +35,9 @@
         error-text="请求失败，点击重新加载"
       >
         <article-item
-        v-for="(item, index) in list"
-        :key="index"
-        :article="item"
+          v-for="(item, index) in list"
+          :key="index"
+          :article="item"
         ></article-item>
       </van-list>
     </van-pull-refresh>
