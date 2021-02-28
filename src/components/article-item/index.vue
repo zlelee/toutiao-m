@@ -9,7 +9,7 @@
       <div slot="label" class="label-info-wrap">
         <span>{{ article.aut_name }}</span>
         <span>{{ article.comm_count }}评论</span>
-        <span>{{ article.pubdate }}</span>
+        <span>{{ article.pubdate | relativeTime }}</span>
       </div>
 
       <!-- 封面图片只有一张 -->
