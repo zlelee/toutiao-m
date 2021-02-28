@@ -26,10 +26,10 @@
     <van-grid class="recommend-grid" :gutter="10">
       <van-grid-item
         class="grid-item"
-        v-for="(value, index) in 8"
+        v-for="(channel, index) in 8"
         :key="index"
         icon="plus"
-        text="文字"
+        text="文本"
       >
       </van-grid-item>
     </van-grid>
@@ -37,9 +37,11 @@
 </template>
 
 <script>
+import { getAllChannels } from '@/api/channel'
 export default {
   name: 'ChannelEdit',
   props: {
+    // home 组件传递过来的 频道列表数组
     myChannels: {
       type: Array,
       required: true
@@ -50,10 +52,25 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      allChannels: []
+    }
   },
-
-  methods: {}
+  created() {
+    this.loadAllChannels()
+  },
+  methods: {
+    async loadAllChannels() {
+      try {
+        const { data } = await getAllChannels()
+        this.allChannels = data.data.channels
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  },
+  computed: {
+  }
 }
 </script>
 
