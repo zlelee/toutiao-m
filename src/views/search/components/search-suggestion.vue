@@ -6,6 +6,7 @@
 
 <script>
 import { getSearchSuggestion } from '@/api/search.js'
+import { debounce } from 'lodash'
 export default {
   name: 'SearchSuggestion',
   components: {},
@@ -23,9 +24,9 @@ export default {
   computed: {},
   watch: {
     searchText: {
-      handler(value) {
+      handler: debounce(function (value) {
         this.loadSuggestion(value)
-      },
+      }, 200),
       immediate: true
     }
   },
