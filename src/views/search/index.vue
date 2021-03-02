@@ -15,7 +15,7 @@
     <!-- 搜索结果 -->
     <search-results v-if="isResultShow"/>
     <!-- 联想建议 -->
-    <search-suggestion v-else-if="searchText"/>
+    <search-suggestion :search-text="searchText" v-else-if="searchText"/>
     <!-- 搜索历史 -->
     <search-history v-else/>
   </div>
