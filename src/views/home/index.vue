@@ -49,6 +49,8 @@
 import { getUserChannels } from '@/api/user'
 import articleList from './components/articel-list'
 import channelEdit from './components/channel-edit'
+import { mapState } from 'vuex'
+import { getItem } from '@/utils/storage'
 export default {
   name: 'Home',
   components: {
@@ -62,14 +64,33 @@ export default {
       isChannelEditShow: false
     }
   },
-  computed: {},
   methods: {
     async loadchannels() {
+      // 未优化
       try {
-        const { data } = await getUserChannels()
-        this.channels = data.data.channels
+        let channels = []
+        if (this.user) {
+          // 已登录，请求获取线上的频道数据
+          const { data } = await getUserChannels()
+          channels = data.data.channels
+        } else {
+          // 未登录
+          const localChannels = getItem('channels')
+          if (localChannels) {
+            // 有本地频道数据，则使用
+            channels = localChannels
+          } else {
+            // 没有本地频道数据，则请求获取默认推荐的频道列表
+            const { data } = await getUserChannels()
+            channels = data.data.channels
+          }
+        }
+
+        // 将数据更新到组件中
+        this.channels = channels
       } catch (err) {
-        this.$toast('获取频道列表失败')
+        console.log(err)
+        this.$toast('数据获取失败')
       }
     },
     setActive(index, isEditShow = true) {
@@ -79,6 +100,9 @@ export default {
   },
   created() {
     this.loadchannels()
+  },
+  computed: {
+    ...mapState(['user'])
   }
 }
 </script>
