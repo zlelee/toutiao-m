@@ -1,9 +1,15 @@
 <template>
-   <div class="channel-edit">
+  <div class="channel-edit">
     <!-- 我的频道标题 -->
     <van-cell :border="false">
       <div slot="title" class="title-text">我的频道</div>
-      <van-button class="edit-btn" type="danger" plain round size="mini" @click="isEdit=!isEdit"
+      <van-button
+        class="edit-btn"
+        type="danger"
+        plain
+        round
+        size="mini"
+        @click="isEdit = !isEdit"
         >编辑</van-button
       >
     </van-cell>
@@ -13,10 +19,16 @@
         class="grid-item"
         v-for="(channel, index) in myChannels"
         :key="index"
-        @click="onClickMyChannel(channel,index)"
+        @click="onClickMyChannel(channel, index)"
       >
-      <van-icon slot="icon" name="clear" v-show="isEdit && !requiredChannel.includes(channel.id)"></van-icon>
-      <span slot="text" class="text" :class="{ active: index === active }">{{channel.name}}</span>
+        <van-icon
+          slot="icon"
+          name="clear"
+          v-show="isEdit && !requiredChannel.includes(channel.id)"
+        ></van-icon>
+        <span slot="text" class="text" :class="{ active: index === active }">{{
+          channel.name
+        }}</span>
       </van-grid-item>
     </van-grid>
     <!-- 频道推荐标题 -->
@@ -39,7 +51,7 @@
 </template>
 
 <script>
-import { getAllChannels, addUserChannel } from '@/api/channel'
+import { getAllChannels, addUserChannel, deleteUserChannel } from '@/api/channel'
 import { setItem } from '@/utils/storage'
 export default {
   name: 'ChannelEdit',
@@ -100,9 +112,24 @@ export default {
           this.$emit('updateActive', this.active - 1)
         }
         this.myChannels.splice(index, 1)
+        // 数据持久化
+        this.deleteChannel(channel)
       } else {
         // 切换操作
         this.$emit('updateActive', index, false)
+      }
+    },
+    async deleteChannel(channel) {
+      try {
+        if (this.$store.state.user) {
+          // 已登录，将数据更新到后端
+          await deleteUserChannel(channel.id)
+        } else {
+          // 未登录，将数据更新到本地
+          setItem('TOUTIAO_CHANNELS', this.myChannels)
+        }
+      } catch (err) {
+        this.$toast('操作失败，请稍后重试')
       }
     }
   },
