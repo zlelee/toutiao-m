@@ -13,6 +13,7 @@
         class="grid-item"
         v-for="(channel, index) in myChannels"
         :key="index"
+        @click="onClickMyChannel(channel,index)"
       >
       <van-icon slot="icon" name="clear" v-show="isEdit && !requiredChannel.includes(channel.id)"></van-icon>
       <span slot="text" class="text" :class="{ active: index === active }">{{channel.name}}</span>
@@ -68,11 +69,20 @@ export default {
         const { data } = await getAllChannels()
         this.allChannels = data.data.channels
       } catch (err) {
-        console.log(err)
+        this.$toast('加载频道列表失败')
       }
     },
     addChannel(channel) {
       this.myChannels.push(channel)
+    },
+    onClickMyChannel(channel, index) {
+      if (this.isEdit) {
+        // 编辑操作
+
+      } else {
+        // 切换操作
+        this.$emit('updateActive', index, false)
+      }
     }
   },
   computed: {

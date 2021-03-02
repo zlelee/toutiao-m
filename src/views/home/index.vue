@@ -40,7 +40,7 @@
       close-icon-position="top-left"
       :style="{ height: '100%' }"
     >
-    <channel-edit :my-channels="channels" :active="active"/>
+    <channel-edit @updateActive="setActive" :my-channels="channels" :active="active"/>
     </van-popup>
   </div>
 </template>
@@ -71,6 +71,10 @@ export default {
       } catch (err) {
         this.$toast('获取频道列表失败')
       }
+    },
+    setActive(index, isEditShow = true) {
+      this.active = index
+      this.isChannelEditShow = isEditShow
     }
   },
   created() {
