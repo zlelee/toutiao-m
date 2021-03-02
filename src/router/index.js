@@ -18,6 +18,11 @@ const routes = [
       { path: '/video', component: () => import('@/views/video') },
       { path: '/my', component: () => import('@/views/my') }
     ]
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import('@/views/search')
   }
 ]
 
