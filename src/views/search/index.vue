@@ -9,14 +9,15 @@
         background="#3296fa"
         @search="onSearch"
         @cancel="onCancel"
+        @focus="isResultShow = false"
       />
     </form>
-    <!-- 搜索历史 -->
-    <search-history />
-    <!-- 联想建议 -->
-    <search-suggestion />
     <!-- 搜索结果 -->
-    <search-results />
+    <search-results v-if="isResultShow"/>
+    <!-- 联想建议 -->
+    <search-suggestion v-else-if="searchText"/>
+    <!-- 搜索历史 -->
+    <search-history v-else/>
   </div>
 </template>
 
@@ -29,7 +30,8 @@ export default {
 
   data() {
     return {
-      searchText: ''
+      searchText: '',
+      isResultShow: false
     }
   },
   components: {
@@ -39,7 +41,7 @@ export default {
   },
   methods: {
     onSearch(val) {
-      this.$toast(val)
+      this.isResultShow = true
     },
     onCancel() {
       this.$router.back()
