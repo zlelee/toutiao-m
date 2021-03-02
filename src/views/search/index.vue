@@ -10,30 +10,41 @@
         @cancel="onCancel"
       />
     </form>
+    <!-- 搜索历史 -->
+    <search-history />
+    <!-- 联想建议 -->
+    <search-suggestion />
+    <!-- 搜索结果 -->
+    <search-results />
   </div>
 </template>
 
 <script>
+import SearchHistory from './components/search-history'
+import SearchSuggestion from './components/search-suggestion'
+import SearchResults from './components/search-results'
 export default {
   name: 'Search',
 
-  data () {
+  data() {
     return {
       value: ''
     }
   },
-
+  components: {
+    SearchHistory,
+    SearchSuggestion,
+    SearchResults
+  },
   methods: {
-    onSearch (val) {
+    onSearch(val) {
       this.$toast(val)
     },
-    onCancel () {
+    onCancel() {
       this.$router.push('/')
     }
   }
 }
 </script>
 
-<style lang='less' scoped>
-
-</style>
+<style lang="less" scoped></style>
