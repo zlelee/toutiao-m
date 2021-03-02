@@ -39,7 +39,8 @@
 </template>
 
 <script>
-import { getAllChannels } from '@/api/channel'
+import { getAllChannels, addUserChannel } from '@/api/channel'
+import { setItem } from '@/utils/storage'
 export default {
   name: 'ChannelEdit',
   props: {
@@ -72,8 +73,22 @@ export default {
         this.$toast('加载频道列表失败')
       }
     },
-    addChannel(channel) {
+    async addChannel(channel) {
       this.myChannels.push(channel)
+      if (this.$store.state.user) {
+        // 登录状态
+        try {
+          await addUserChannel({
+            id: channel.id,
+            seq: this.myChannels.length
+          })
+        } catch (err) {
+          this.$toast('添加频道失败')
+        }
+      } else {
+        // 未登录状态
+        setItem('userChannels', this.myChannels)
+      }
     },
     onClickMyChannel(channel, index) {
       if (this.isEdit) {
