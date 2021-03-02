@@ -1,22 +1,27 @@
 <template>
-  <div>
-    SearchSuggestion
+  <div class="search-suggestion">
+    <van-cell title="黑马程序员..." icon="search"></van-cell>
+    <van-cell title="黑马程序员..." icon="search"></van-cell>
+    <van-cell title="黑马程序员..." icon="search"></van-cell>
+    <van-cell title="黑马程序员..." icon="search"></van-cell>
+    <van-cell title="黑马程序员..." icon="search"></van-cell>
   </div>
 </template>
 
 <script>
 export default {
   name: 'SearchSuggestion',
-
+  components: {},
+  props: {},
   data () {
-    return {
-    }
+    return {}
   },
-
+  computed: {},
+  watch: {},
+  created () {},
+  mounted () {},
   methods: {}
 }
 </script>
 
-<style lang='less' scoped>
-
-</style>
+<style scoped lang="less"></style>

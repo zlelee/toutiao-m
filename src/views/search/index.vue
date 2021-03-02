@@ -3,9 +3,10 @@
     <!-- 搜索栏》事件监听 -->
     <form action="/">
       <van-search
-        v-model="value"
+        v-model="searchText"
         show-action
         placeholder="请输入搜索关键词"
+        background="#3296fa"
         @search="onSearch"
         @cancel="onCancel"
       />
@@ -28,7 +29,7 @@ export default {
 
   data() {
     return {
-      value: ''
+      searchText: ''
     }
   },
   components: {
@@ -41,10 +42,19 @@ export default {
       this.$toast(val)
     },
     onCancel() {
-      this.$router.push('/')
+      this.$router.back()
     }
   }
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.search-container {
+  .van-search__action {
+    color: #fff;
+  }
+  .van-search__action:active {
+    background-color: transparent;
+  }
+}
+</style>
