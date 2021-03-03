@@ -29,6 +29,7 @@
 import SearchHistory from './components/search-history'
 import SearchSuggestion from './components/search-suggestion'
 import SearchResults from './components/search-results'
+import { getItem, setItem } from '@/utils/storage'
 export default {
   name: 'Search',
 
@@ -36,7 +37,7 @@ export default {
     return {
       searchText: '',
       isResultShow: false,
-      searchHistories: []
+      searchHistories: getItem('TOUTIAO_SEARCH_HISTORIES') || []
     }
   },
   components: {
@@ -60,6 +61,11 @@ export default {
     },
     onCancel() {
       this.$router.back()
+    }
+  },
+  watch: {
+    searchHistories(val) {
+      setItem('TOUTIAO_SEARCH_HISTORIES', val)
     }
   }
 }
