@@ -15,7 +15,11 @@
     <!-- 搜索结果 -->
     <search-results :search-text="searchText" v-if="isResultShow" />
     <!-- 联想建议 -->
-    <search-suggestion @suggestion-click="onSearch" :search-text="searchText" v-else-if="searchText" />
+    <search-suggestion
+      @suggestion-click="onSearch"
+      :search-text="searchText"
+      v-else-if="searchText"
+    />
     <!-- 搜索历史 -->
     <search-history v-else />
   </div>
@@ -53,6 +57,17 @@ export default {
 
 <style lang="less" scoped>
 .search-container {
+  padding-top: 108px;
+  .van-search {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
+  .van-search__action {
+    color: #fff;
+  }
   .van-search__action {
     color: #fff;
   }
