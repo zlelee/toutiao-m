@@ -1,6 +1,8 @@
 <template>
   <div class="search-suggestion">
-    <van-cell :key="index" v-for="(suggestion,index) in suggestions" :title="suggestion" icon="search"></van-cell>
+    <van-cell :key="index" v-for="(suggestion,index) in suggestions" icon="search">
+      <div slot="title" v-html="heilight(suggestion)"></div>
+    </van-cell>
   </div>
 </template>
 
@@ -38,11 +40,20 @@ export default {
         const { data } = await getSearchSuggestion(q)
         this.suggestions = data.data.options
       } catch (err) {
-
       }
+    },
+    heilight(text) {
+      const reg = new RegExp(this.searchText, 'gi')
+      return text.replace(reg, `<span class="active">${this.searchText}</span>`)
     }
   }
 }
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.search-suggestion {
+  /deep/ .active{
+    color: skyblue;
+  }
+}
+</style>
