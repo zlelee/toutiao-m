@@ -44,6 +44,7 @@ export default {
         this.searchHistories.splice(index, 1)
       } else {
         // 搜索
+        this.$emit('on-search', item)
       }
     },
     clearAll() {

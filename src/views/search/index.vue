@@ -21,7 +21,7 @@
       v-else-if="searchText"
     />
     <!-- 搜索历史 -->
-    <search-history :searchHistories="searchHistories" v-else />
+    <search-history @on-search="onSearch" :searchHistories="searchHistories" v-else />
   </div>
 </template>
 
