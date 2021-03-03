@@ -101,6 +101,7 @@
 </template>
 
 <script>
+import { getArticleById } from '@/api/article-list'
 export default {
   name: '',
   props: {
@@ -113,8 +114,19 @@ export default {
     return {
     }
   },
-
-  methods: {}
+  created() {
+    this.loadArticleInfo()
+  },
+  methods: {
+    async loadArticleInfo () {
+      try {
+        const { data } = await getArticleById(this.articleId)
+        console.log(data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  }
 }
 </script>
 
