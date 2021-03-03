@@ -35,7 +35,8 @@ export default {
   data() {
     return {
       searchText: '',
-      isResultShow: false
+      isResultShow: false,
+      searchHistories: []
     }
   },
   components: {
@@ -45,8 +46,17 @@ export default {
   },
   methods: {
     onSearch(val) {
+      // 重新赋值
       this.searchText = val
+      // 显示搜索结果
       this.isResultShow = true
+      // 添加历史记录
+      // 先判断有没有重复的
+      const index = this.searchHistories.indexOf(val)
+      if (index !== -1) {
+        this.searchHistories.splice(index, 1)
+      }
+      this.searchHistories.unshift(val)
     },
     onCancel() {
       this.$router.back()

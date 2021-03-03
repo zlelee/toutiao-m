@@ -24,9 +24,12 @@
 export default {
   name: 'SearchHistory',
   components: {},
-  props: {},
+  props: {
+
+  },
   data () {
-    return {}
+    return {
+    }
   },
   computed: {},
   watch: {},
