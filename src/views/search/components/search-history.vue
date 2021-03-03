@@ -2,7 +2,7 @@
   <div class="search-history">
     <van-cell title="搜索历史">
       <div v-if="isDeleteShow">
-        <span>全部删除</span>
+        <span @click="clearAll">全部删除</span>
         <span @click="isDeleteShow = false">完成</span>
       </div>
       <van-icon name="delete" v-else @click="isDeleteShow = true"/>
@@ -11,6 +11,7 @@
       v-for="(item, index) in searchHistories"
       :key="index"
       :title="item"
+      @click="onSearchHistoriesClcik(item, index)"
     >
       <van-icon name="close" v-show="isDeleteShow" />
     </van-cell>
@@ -36,7 +37,19 @@ export default {
   watch: {},
   created() {},
   mounted() {},
-  methods: {}
+  methods: {
+    onSearchHistoriesClcik(item, index) {
+      if (this.isDeleteShow) {
+        // 删除
+        this.searchHistories.splice(index, 1)
+      } else {
+        // 搜索
+      }
+    },
+    clearAll() {
+      this.searchHistories.splice(0)
+    }
+  }
 }
 </script>
 
