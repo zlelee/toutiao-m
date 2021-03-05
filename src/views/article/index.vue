@@ -31,27 +31,11 @@
           <div slot="label" class="publish-date">
             {{ articleInfo.pubdate | relativeTime }}
           </div>
-          <van-button
-            v-if="articleInfo.is_followed"
-            class="follow-btn"
-            round
-            size="small"
-            @click="FollowClick"
-            :loading="followLoading"
-            >已关注</van-button
-          >
-          <van-button
-            v-else
-            class="follow-btn"
-            type="info"
-            color="#3296fa"
-            round
-            size="small"
-            icon="plus"
-            :loading="followLoading"
-            @click="FollowClick"
-            >关注</van-button
-          >
+          <follow-user
+          :userId="articleInfo.aut_id"
+          :isFollowed="articleInfo.is_followed"
+          @update-follow="articleInfo.is_followed = $event"
+          />
         </van-cell>
         <!-- /用户信息 -->
 
@@ -98,7 +82,7 @@
 <script>
 import { getArticleById } from '@/api/article-list'
 import { ImagePreview } from 'vant'
-import { addFollow, deleteFollow } from '@/api/user'
+import followUser from '@/components/follow-user'
 export default {
   name: 'articleIndex',
   props: {
@@ -106,6 +90,9 @@ export default {
       type: [Number, String, Object],
       required: true
     }
+  },
+  components: {
+    followUser
   },
   data() {
     return {
@@ -148,21 +135,6 @@ export default {
           })
         }
       })
-    },
-    async FollowClick() {
-      this.followLoading = true
-      try {
-        if (this.articleInfo.is_followed) {
-          await deleteFollow(this.articleInfo.aut_id)
-        } else {
-          await addFollow(this.articleInfo.aut_id)
-        }
-        this.articleInfo.is_followed = !this.articleInfo.is_followed
-      } catch (err) {
-        console.log(err)
-        this.$toast('操作失败')
-      }
-      this.followLoading = false
     }
   }
 }
