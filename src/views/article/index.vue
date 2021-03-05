@@ -32,19 +32,26 @@
             {{ articleInfo.pubdate | relativeTime }}
           </div>
           <van-button
+            v-if="articleInfo.is_followed"
+            class="follow-btn"
+            round
+            size="small"
+            @click="FollowClick"
+            :loading="followLoading"
+            >已关注</van-button
+          >
+          <van-button
+            v-else
             class="follow-btn"
             type="info"
             color="#3296fa"
             round
             size="small"
             icon="plus"
+            :loading="followLoading"
+            @click="FollowClick"
             >关注</van-button
           >
-          <!-- <van-button
-            class="follow-btn"
-            round
-            size="small"
-          >已关注</van-button> -->
         </van-cell>
         <!-- /用户信息 -->
 
@@ -91,8 +98,9 @@
 <script>
 import { getArticleById } from '@/api/article-list'
 import { ImagePreview } from 'vant'
+import { addFollow, deleteFollow } from '@/api/user'
 export default {
-  name: '',
+  name: 'articleIndex',
   props: {
     articleId: {
       type: [Number, String, Object],
@@ -103,7 +111,8 @@ export default {
     return {
       articleInfo: {},
       loading: true,
-      errStatus: 0
+      errStatus: 0,
+      followLoading: false
     }
   },
   created() {
@@ -126,7 +135,7 @@ export default {
       }
       this.loading = false
     },
-    previewImg () {
+    previewImg() {
       const contentEl = this.$refs.contentRef
       const allImg = contentEl.querySelectorAll('img')
       const images = []
@@ -139,6 +148,22 @@ export default {
           })
         }
       })
+    },
+    async FollowClick() {
+      this.followLoading = true
+      try {
+        console.log(this.articleInfo.aut_id)
+        if (this.articleInfo.is_followed) {
+          await deleteFollow(this.articleInfo.aut_id)
+        } else {
+          await addFollow(this.articleInfo.aut_id)
+        }
+        this.articleInfo.is_followed = !this.articleInfo.is_followed
+      } catch (err) {
+        console.log(err)
+        this.$toast('操作失败')
+      }
+      this.followLoading = false
     }
   }
 }
