@@ -37,7 +37,6 @@
             round
             size="small"
             @click="FollowClick"
-            :loading="followLoading"
             >已关注</van-button
           >
           <van-button
@@ -48,7 +47,6 @@
             round
             size="small"
             icon="plus"
-            :loading="followLoading"
             @click="FollowClick"
             >关注</van-button
           >
@@ -111,8 +109,7 @@ export default {
     return {
       articleInfo: {},
       loading: true,
-      errStatus: 0,
-      followLoading: false
+      errStatus: 0
     }
   },
   created() {
@@ -150,7 +147,6 @@ export default {
       })
     },
     async FollowClick() {
-      this.followLoading = true
       try {
         if (this.articleInfo.is_followed) {
           await deleteFollow(this.articleInfo.aut_id)
@@ -162,7 +158,6 @@ export default {
         console.log(err)
         this.$toast('操作失败')
       }
-      this.followLoading = false
     }
   }
 }
