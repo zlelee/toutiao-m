@@ -1,7 +1,9 @@
 <template>
   <div class="article-container">
     <!-- 导航栏 -->
-    <van-nav-bar class="page-nav-bar" left-arrow title="黑马头条"></van-nav-bar>
+    <van-nav-bar class="page-nav-bar"  title="黑马头条">
+      <van-icon slot="left" name="arrow-left" @click="$router.back()"></van-icon>
+    </van-nav-bar>
     <!-- /导航栏 -->
 
     <div class="main-wrap">
