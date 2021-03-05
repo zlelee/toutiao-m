@@ -11,7 +11,8 @@ module.exports = {
         return file.includes('vant') ? 37.5 : 75
       },
       // 代表作用于所有的 CSS 属性
-      propList: ['*']
+      propList: ['*'],
+      exclude: 'article.css'
     }
   }
 }

@@ -4,7 +4,7 @@
     <van-nav-bar class="page-nav-bar" left-arrow title="黑马头条"></van-nav-bar>
     <!-- /导航栏 -->
 
-    <div class="main-wrap" >
+    <div class="main-wrap">
       <!-- 加载中 -->
       <div class="loading-wrap" v-if="loading">
         <van-loading color="#3296fa" vertical>加载中</van-loading>
@@ -48,13 +48,13 @@
         <!-- /用户信息 -->
 
         <!-- 文章内容 -->
-        <div class="article-content" v-html="articleInfo.content"></div>
+        <div class="article-content markdown-body" v-html="articleInfo.content"></div>
         <van-divider>正文结束</van-divider>
       </div>
       <!-- /加载完成-文章详情 -->
 
       <!-- 加载失败：404 -->
-      <div class="error-wrap" v-else-if ="errStatus==404">
+      <div class="error-wrap" v-else-if="errStatus == 404">
         <van-icon name="failure" />
         <p class="text">该资源不存在或已删除！</p>
       </div>
@@ -85,6 +85,7 @@
 
 <script>
 import { getArticleById } from '@/api/article-list'
+
 export default {
   name: '',
   props: {
@@ -121,6 +122,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import './article.css';
 .article-container {
   .main-wrap {
     position: fixed;
