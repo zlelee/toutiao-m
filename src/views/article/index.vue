@@ -25,6 +25,7 @@
             round
             fit="cover"
             :src="articleInfo.aut_photo"
+            @click="previewImg"
           />
           <div slot="title" class="user-name">{{ articleInfo.aut_name }}</div>
           <div slot="label" class="publish-date">
@@ -48,7 +49,11 @@
         <!-- /用户信息 -->
 
         <!-- 文章内容 -->
-        <div class="article-content markdown-body" v-html="articleInfo.content"></div>
+        <div
+          class="article-content markdown-body"
+          v-html="articleInfo.content"
+          ref="contentRef"
+        ></div>
         <van-divider>正文结束</van-divider>
       </div>
       <!-- /加载完成-文章详情 -->
@@ -85,20 +90,20 @@
 
 <script>
 import { getArticleById } from '@/api/article-list'
-
+import { ImagePreview } from 'vant'
 export default {
   name: '',
   props: {
     articleId: {
       type: [Number, String, Object],
-      required: true,
-      errStatus: 0
+      required: true
     }
   },
   data() {
     return {
       articleInfo: {},
-      loading: true
+      loading: true,
+      errStatus: 0
     }
   },
   created() {
@@ -110,12 +115,30 @@ export default {
       try {
         const { data } = await getArticleById(this.articleId)
         this.articleInfo = data.data
+        // 数据加载完成
+        setTimeout(() => {
+          this.previewImg()
+        }, 10)
       } catch (err) {
         if (err.response && err.response.status === 404) {
           this.errStatus = 404
         }
       }
       this.loading = false
+    },
+    previewImg () {
+      const contentEl = this.$refs.contentRef
+      const allImg = contentEl.querySelectorAll('img')
+      const images = []
+      allImg.forEach((element, index) => {
+        images.push(element.src)
+        element.onclick = () => {
+          ImagePreview({
+            images,
+            startPosition: index
+          })
+        }
+      })
     }
   }
 }
