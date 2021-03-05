@@ -4,15 +4,15 @@
     <van-nav-bar class="page-nav-bar" left-arrow title="黑马头条"></van-nav-bar>
     <!-- /导航栏 -->
 
-    <div class="main-wrap">
+    <div class="main-wrap" >
       <!-- 加载中 -->
-      <div class="loading-wrap">
+      <div class="loading-wrap" v-if="loading">
         <van-loading color="#3296fa" vertical>加载中</van-loading>
       </div>
       <!-- /加载中 -->
 
       <!-- 加载完成-文章详情 -->
-      <div class="article-detail">
+      <div class="article-detail" v-else-if="articleInfo.title">
         <!-- 文章标题 -->
         <h1 class="article-title">{{ articleInfo.title }}</h1>
         <!-- /文章标题 -->
@@ -54,14 +54,14 @@
       <!-- /加载完成-文章详情 -->
 
       <!-- 加载失败：404 -->
-      <div class="error-wrap">
+      <div class="error-wrap" v-else-if ="errStatus==404">
         <van-icon name="failure" />
         <p class="text">该资源不存在或已删除！</p>
       </div>
       <!-- /加载失败：404 -->
 
       <!-- 加载失败：其它未知错误（例如网络原因或服务端异常） -->
-      <div class="error-wrap">
+      <div class="error-wrap" v-else>
         <van-icon name="failure" />
         <p class="text">内容加载失败！</p>
         <van-button class="retry-btn">点击重试</van-button>
@@ -90,12 +90,14 @@ export default {
   props: {
     articleId: {
       type: [Number, String, Object],
-      required: true
+      required: true,
+      errStatus: 0
     }
   },
   data() {
     return {
-      articleInfo: {}
+      articleInfo: {},
+      loading: true
     }
   },
   created() {
@@ -103,12 +105,16 @@ export default {
   },
   methods: {
     async loadArticleInfo() {
+      this.loading = true
       try {
         const { data } = await getArticleById(this.articleId)
         this.articleInfo = data.data
       } catch (err) {
-        console.log(err)
+        if (err.response && err.response.status === 404) {
+          this.errStatus = 404
+        }
       }
+      this.loading = false
     }
   }
 }
