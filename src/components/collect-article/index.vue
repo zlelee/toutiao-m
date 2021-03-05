@@ -43,7 +43,7 @@ export default {
           this.$toast.success('收藏成功')
         }
       } catch (err) {
-        console.log(err)
+        this.$toast('操作失败,请重试')
       }
       this.isloading = false
     }

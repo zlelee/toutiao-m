@@ -42,7 +42,7 @@ export default {
           this.$toast.success('点赞成功')
         }
       } catch (err) {
-        console.log(err)
+        this.$toast('操作失败,请重试')
       }
       this.isloading = false
     }
