@@ -33,8 +33,7 @@
           </div>
           <follow-user
           :userId="articleInfo.aut_id"
-          :isFollowed="articleInfo.is_followed"
-          @update-follow="articleInfo.is_followed = $event"
+          v-model="articleInfo.is_followed"
           />
         </van-cell>
         <!-- /用户信息 -->
