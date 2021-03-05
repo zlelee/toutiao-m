@@ -152,7 +152,6 @@ export default {
     async FollowClick() {
       this.followLoading = true
       try {
-        console.log(this.articleInfo.aut_id)
         if (this.articleInfo.is_followed) {
           await deleteFollow(this.articleInfo.aut_id)
         } else {
