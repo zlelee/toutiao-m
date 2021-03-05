@@ -35,10 +35,12 @@ export default {
           // 取消收藏
           await deleteCollect(this.collectId)
           this.$emit('input', false)
+          this.$toast.success('取消收藏')
         } else {
           // 收藏文章
           await addCollect(this.collectId)
           this.$emit('input', true)
+          this.$toast.success('收藏成功')
         }
       } catch (err) {
         console.log(err)

@@ -57,7 +57,7 @@
             :collectId="articleInfo.art_id"
             v-model="articleInfo.is_collected"
           />
-          <van-icon color="#777" name="good-job-o" />
+          <like-article :attitude.sync="articleInfo.attitude" :articleId="articleInfo.art_id"/>
           <van-icon name="share" color="#777777"></van-icon>
         </div>
         <!-- /底部区域 -->
@@ -87,6 +87,7 @@ import { getArticleById } from '@/api/article-list'
 import { ImagePreview } from 'vant'
 import followUser from '@/components/follow-user'
 import collectArticle from '@/components/collect-article'
+import likeArticle from '@/components/like-article'
 export default {
   name: 'articleIndex',
   props: {
@@ -97,7 +98,8 @@ export default {
   },
   components: {
     followUser,
-    collectArticle
+    collectArticle,
+    likeArticle
   },
   data() {
     return {
