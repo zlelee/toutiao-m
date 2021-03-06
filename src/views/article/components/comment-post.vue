@@ -13,7 +13,8 @@
     <van-button
       class="post-btn"
       @click="onAddComment"
-    >发布</van-button>
+      >发布</van-button
+    >
   </div>
 </template>
 
@@ -27,15 +28,15 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       message: ''
     }
   },
   computed: {},
   watch: {},
-  created () {},
-  mounted () {},
+  created() {},
+  mounted() {},
   methods: {
     onAddComment() {
       this.$emit('add-comment', {
