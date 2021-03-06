@@ -3,8 +3,10 @@
     v-model="loading"
     :finished="finished"
     finished-text="没有更多了"
+    :immediate-check="false"
     @load="onLoad"
   >
+  <!-- immediate-check 是否在初始化时立即执行滚动位置检查 -->
     <comment-item
       v-for="(item, index) in list"
       :key="index"
@@ -46,6 +48,7 @@ export default {
     }
   },
   created() {
+    this.loading = true
     this.onLoad()
   },
   methods: {
