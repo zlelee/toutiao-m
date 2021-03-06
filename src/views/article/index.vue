@@ -47,13 +47,13 @@
           ref="contentRef"
         ></div>
         <van-divider>正文结束</van-divider>
-        <article-comment :source="articleInfo.art_id"/>
+        <article-comment :source="articleInfo.art_id" @update-comment_total="comment_total = $event.total_count"/>
         <!-- 底部区域 -->
         <div class="article-bottom">
           <van-button class="comment-btn" type="default" round size="small"
             >写评论</van-button
           >
-          <van-icon name="comment-o" badge="123" color="#777" />
+          <van-icon name="comment-o" :badge="comment_total" color="#777" />
           <collect-article
             :collectId="articleInfo.art_id"
             v-model="articleInfo.is_collected"
@@ -109,7 +109,8 @@ export default {
       articleInfo: {},
       loading: true,
       errStatus: 0,
-      followLoading: false
+      followLoading: false,
+      comment_total: 0
     }
   },
   created() {

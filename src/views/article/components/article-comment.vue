@@ -32,7 +32,9 @@ export default {
       limit: 10
     }
   },
-
+  created() {
+    this.onLoad()
+  },
   methods: {
     async onLoad() {
       try {
@@ -42,7 +44,8 @@ export default {
           offset: this.offset,
           limit: this.limit
         })
-        const results = data.data.results
+        const { results } = data.data
+        this.$emit('update-comment_total', data.data)
         this.list.push(...results)
         this.loading = false
         if (results.length) {
@@ -51,7 +54,7 @@ export default {
           this.finished = true
         }
       } catch (err) {
-        console.log(err)
+        this.$toast('获取评论失败')
       }
     }
   }
