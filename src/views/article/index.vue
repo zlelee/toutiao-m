@@ -228,7 +228,6 @@ export default {
       margin: 0;
       color: #3a3a3a;
     }
-
     .user-info {
       padding: 0 32px;
       .avatar {
