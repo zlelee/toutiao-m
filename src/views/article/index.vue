@@ -1,7 +1,7 @@
 <template>
   <div class="article-container">
     <!-- 导航栏 -->
-    <van-nav-bar class="page-nav-bar" title="黑马头条">
+    <van-nav-bar class="page-nav-bar" title="黑马头条" v-show="isNavBarShow">
       <van-icon
         slot="left"
         name="arrow-left"
@@ -109,8 +109,8 @@
       <!-- /加载失败：其它未知错误（例如网络原因或服务端异常） -->
 
       <!-- 回复评论弹出层 -->
-      <van-popup v-model="isReplyShow" position="bottom" style="height: 95%">
-        评论回复
+      <van-popup v-model="isReplyShow" position="bottom" style="height: 100%">
+        <comment-reply :comment="commentInfo"/>
       </van-popup>
       <!-- /回复评论弹出层 -->
     </div>
@@ -126,6 +126,7 @@ import collectArticle from '@/components/collect-article'
 import likeArticle from '@/components/like-article'
 import articleComment from './components/article-comment'
 import commentPost from './components/comment-post'
+import CommentReply from './components/comment-reply'
 export default {
   name: 'articleIndex',
   props: {
@@ -139,7 +140,8 @@ export default {
     collectArticle,
     likeArticle,
     articleComment,
-    commentPost
+    commentPost,
+    CommentReply
   },
   data() {
     return {
@@ -150,7 +152,9 @@ export default {
       comment_total: 0,
       isPostShow: false,
       commentList: [],
-      isReplyShow: false
+      isReplyShow: false,
+      isNavBarShow: true,
+      commentInfo: null
     }
   },
   created() {
@@ -202,8 +206,9 @@ export default {
       }
     },
     onReplyClick(comment) {
-      console.log(comment)
+      this.commentInfo = comment
       this.isReplyShow = true
+      this.isNavBarShow = false
     }
   }
 }
