@@ -1,48 +1,61 @@
 <template>
   <van-list
-  v-model="loading"
-  :finished="finished"
-  finished-text="没有更多了"
-  @load="onLoad"
->
-  <van-cell v-for="item in list" :key="item" :title="item" />
-</van-list>
+    v-model="loading"
+    :finished="finished"
+    finished-text="没有更多了"
+    @load="onLoad"
+  >
+    <van-cell
+      v-for="(item, index) in list"
+      :key="index"
+      :title="item.content"
+    />
+  </van-list>
 </template>
 
 <script>
+import { getComments } from '@/api/comment'
 export default {
   name: 'articleComment',
-
-  data () {
+  props: {
+    source: {
+      type: [Number, String, Object],
+      required: true
+    }
+  },
+  data() {
     return {
       list: [],
       loading: false,
-      finished: false
+      finished: false,
+      offset: null,
+      limit: 10
     }
   },
 
   methods: {
-    onLoad() {
-      // 异步更新数据
-      // setTimeout 仅做示例，真实场景中一般为 ajax 请求
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1)
-        }
-
-        // 加载状态结束
+    async onLoad() {
+      try {
+        const { data } = await getComments({
+          type: 'a',
+          source: this.source.toString(),
+          offset: this.offset,
+          limit: this.limit
+        })
+        const results = data.data.results
+        this.list.push(...results)
         this.loading = false
-
-        // 数据全部加载完成
-        if (this.list.length >= 40) {
+        if (results.length) {
+          this.offset = data.data.last_id
+        } else {
           this.finished = true
         }
-      }, 1000)
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }
 </script>
 
-<style lang='less' scoped>
-
-</style>
+<style lang="less" scoped></style>

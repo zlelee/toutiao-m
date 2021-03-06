@@ -47,7 +47,7 @@
           ref="contentRef"
         ></div>
         <van-divider>正文结束</van-divider>
-        <article-comment />
+        <article-comment :source="articleInfo.art_id"/>
         <!-- 底部区域 -->
         <div class="article-bottom">
           <van-button class="comment-btn" type="default" round size="small"
