@@ -11,7 +11,6 @@
     <!-- /导航栏 -->
 
     <!-- 当前评论项 -->
-    <comment-item :comment="comment" />
     <!-- /当前评论项 -->
 
     <van-cell title="所有回复" />
@@ -25,11 +24,9 @@
 </template>
 
 <script>
-import commentItem from './comment-item'
 export default {
   name: 'CommentReply',
   components: {
-    commentItem
   },
   props: {
     comment: {
