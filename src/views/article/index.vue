@@ -54,6 +54,7 @@
         <article-comment
           :source="articleInfo.art_id"
           @update-comment_total="comment_total = $event.total_count"
+          :list="commentList"
         />
         <!-- 底部区域 -->
         <div class="article-bottom">
@@ -140,7 +141,8 @@ export default {
       errStatus: 0,
       followLoading: false,
       comment_total: 0,
-      isPostShow: false
+      isPostShow: false,
+      commentList: []
     }
   },
   created() {
@@ -184,9 +186,11 @@ export default {
     async addComments(params) {
       try {
         const { data } = await addComment(params)
-        console.log(data)
+        this.commentList.unshift(data.data.new_obj)
+        this.isPostShow = false
+        this.$toast.success('评论成功')
       } catch (err) {
-        console.log(err)
+        this.$toast('评论失败')
       }
     }
   }

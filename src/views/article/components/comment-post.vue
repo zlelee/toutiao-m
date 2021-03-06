@@ -13,7 +13,6 @@
     <van-button
       class="post-btn"
       @click="onAddComment"
-      :disabled="!message.length"
     >发布</van-button>
   </div>
 </template>
