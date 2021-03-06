@@ -85,7 +85,7 @@
           v-model="isPostShow"
           position="bottom"
         >
-          123
+          <comment-post />
         </van-popup>
       <!-- /评论弹出层 -->
     </div>
@@ -99,6 +99,7 @@ import followUser from '@/components/follow-user'
 import collectArticle from '@/components/collect-article'
 import likeArticle from '@/components/like-article'
 import articleComment from './components/article-comment'
+import commentPost from './components/comment-post'
 export default {
   name: 'articleIndex',
   props: {
@@ -111,7 +112,8 @@ export default {
     followUser,
     collectArticle,
     likeArticle,
-    articleComment
+    articleComment,
+    commentPost
   },
   data() {
     return {
