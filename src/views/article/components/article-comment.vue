@@ -27,6 +27,13 @@ export default {
     list: {
       type: Array,
       default: () => []
+    },
+    type: {
+      type: String,
+      validator: (val) => {
+        return ['a', 'c'].includes(val)
+      },
+      default: 'a'
     }
   },
   data() {
@@ -45,11 +52,12 @@ export default {
     async onLoad() {
       try {
         const { data } = await getComments({
-          type: 'a',
+          type: this.type,
           source: this.source.toString(),
           offset: this.offset,
           limit: this.limit
         })
+        console.log(data)
         const { results } = data.data
         this.$emit('update-comment_total', data.data)
         this.list.push(...results)

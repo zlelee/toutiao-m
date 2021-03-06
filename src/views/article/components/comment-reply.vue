@@ -17,6 +17,7 @@
     <van-cell title="所有回复" />
 
     <!-- 评论的回复列表 -->
+    <article-comment type='c' :source="comment.com_id"/>
     <!-- /评论的回复列表 -->
 
     <!-- 底部 -->
@@ -26,10 +27,12 @@
 
 <script>
 import commentItem from './comment-item'
+import articleComment from './article-comment'
 export default {
   name: 'CommentReply',
   components: {
-    commentItem
+    commentItem,
+    articleComment
   },
   props: {
     comment: {
