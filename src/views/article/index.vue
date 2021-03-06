@@ -55,6 +55,7 @@
           :source="articleInfo.art_id"
           @update-comment_total="comment_total = $event.total_count"
           :list="commentList"
+          @click-reply="onReplyClick"
         />
         <!-- 底部区域 -->
         <div class="article-bottom">
@@ -106,6 +107,12 @@
         >
       </div>
       <!-- /加载失败：其它未知错误（例如网络原因或服务端异常） -->
+
+      <!-- 回复评论弹出层 -->
+      <van-popup v-model="isReplyShow" position="bottom" style="height: 95%">
+        评论回复
+      </van-popup>
+      <!-- /回复评论弹出层 -->
     </div>
   </div>
 </template>
@@ -142,7 +149,8 @@ export default {
       followLoading: false,
       comment_total: 0,
       isPostShow: false,
-      commentList: []
+      commentList: [],
+      isReplyShow: false
     }
   },
   created() {
@@ -192,6 +200,10 @@ export default {
       } catch (err) {
         this.$toast('评论失败')
       }
+    },
+    onReplyClick(comment) {
+      console.log(comment)
+      this.isReplyShow = true
     }
   }
 }
