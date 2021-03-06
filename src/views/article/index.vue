@@ -110,7 +110,7 @@
 
       <!-- 回复评论弹出层 -->
       <van-popup v-model="isReplyShow" position="bottom" style="height: 100%">
-        <comment-reply @close="isReplyShow=false" :comment="commentInfo"/>
+        <comment-reply v-if="isReplyShow" @close="isReplyShow=false" :comment="commentInfo"/>
       </van-popup>
       <!-- /回复评论弹出层 -->
     </div>

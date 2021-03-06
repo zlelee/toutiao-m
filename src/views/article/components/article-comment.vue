@@ -6,12 +6,12 @@
     :immediate-check="false"
     @load="onLoad"
   >
-  <!-- immediate-check 是否在初始化时立即执行滚动位置检查 -->
+    <!-- immediate-check 是否在初始化时立即执行滚动位置检查 -->
     <comment-item
       v-for="(item, index) in list"
       :key="index"
       :comment="item"
-      @click-reply="$emit('click-reply',$event)"
+      @click-reply="$emit('click-reply', $event)"
     />
   </van-list>
 </template>
@@ -32,7 +32,7 @@ export default {
     },
     type: {
       type: String,
-      validator: (val) => {
+      validator: val => {
         return ['a', 'c'].includes(val)
       },
       default: 'a'
@@ -60,7 +60,6 @@ export default {
           offset: this.offset,
           limit: this.limit
         })
-        console.log(data)
         const { results } = data.data
         this.$emit('update-comment_total', data.data)
         this.list.push(...results)
