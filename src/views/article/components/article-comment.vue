@@ -5,15 +5,16 @@
     finished-text="没有更多了"
     @load="onLoad"
   >
-    <van-cell
+    <comment-item
       v-for="(item, index) in list"
       :key="index"
-      :title="item.content"
+      :comment="item"
     />
   </van-list>
 </template>
 
 <script>
+import commentItem from './comment-item'
 import { getComments } from '@/api/comment'
 export default {
   name: 'articleComment',
@@ -57,6 +58,9 @@ export default {
         this.$toast('获取评论失败')
       }
     }
+  },
+  components: {
+    commentItem
   }
 }
 </script>
