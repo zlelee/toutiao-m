@@ -1,8 +1,12 @@
 <template>
   <div class="article-container">
     <!-- 导航栏 -->
-    <van-nav-bar class="page-nav-bar"  title="黑马头条">
-      <van-icon slot="left" name="arrow-left" @click="$router.back()"></van-icon>
+    <van-nav-bar class="page-nav-bar" title="黑马头条">
+      <van-icon
+        slot="left"
+        name="arrow-left"
+        @click="$router.back()"
+      ></van-icon>
     </van-nav-bar>
     <!-- /导航栏 -->
 
@@ -47,10 +51,18 @@
           ref="contentRef"
         ></div>
         <van-divider>正文结束</van-divider>
-        <article-comment :source="articleInfo.art_id" @update-comment_total="comment_total = $event.total_count"/>
+        <article-comment
+          :source="articleInfo.art_id"
+          @update-comment_total="comment_total = $event.total_count"
+        />
         <!-- 底部区域 -->
         <div class="article-bottom">
-          <van-button class="comment-btn" type="default" round size="small" @click="isPostShow=true"
+          <van-button
+            class="comment-btn"
+            type="default"
+            round
+            size="small"
+            @click="isPostShow = true"
             >写评论</van-button
           >
           <van-icon name="comment-o" :badge="comment_total" color="#777" />
@@ -58,10 +70,22 @@
             :collectId="articleInfo.art_id"
             v-model="articleInfo.is_collected"
           />
-          <like-article :attitude.sync="articleInfo.attitude" :articleId="articleInfo.art_id"/>
+          <like-article
+            :attitude.sync="articleInfo.attitude"
+            :articleId="articleInfo.art_id"
+          />
           <van-icon name="share" color="#777777"></van-icon>
         </div>
         <!-- /底部区域 -->
+
+        <!-- 评论弹出层 -->
+        <van-popup v-model="isPostShow" position="bottom">
+          <comment-post
+            :target="articleInfo.art_id"
+            @add-comment="addComments"
+          />
+        </van-popup>
+        <!-- /评论弹出层 -->
       </div>
       <!-- /加载完成-文章详情 -->
 
@@ -76,24 +100,18 @@
       <div class="error-wrap" v-else>
         <van-icon name="failure" />
         <p class="text">内容加载失败！</p>
-        <van-button class="retry-btn" @click="loadArticleInfo">点击重试</van-button>
+        <van-button class="retry-btn" @click="loadArticleInfo"
+          >点击重试</van-button
+        >
       </div>
       <!-- /加载失败：其它未知错误（例如网络原因或服务端异常） -->
-
-      <!-- 评论弹出层 -->
-      <van-popup
-          v-model="isPostShow"
-          position="bottom"
-        >
-          <comment-post />
-        </van-popup>
-      <!-- /评论弹出层 -->
     </div>
   </div>
 </template>
 
 <script>
 import { getArticleById } from '@/api/article-list'
+import { addComment } from '@/api/comment'
 import { ImagePreview } from 'vant'
 import followUser from '@/components/follow-user'
 import collectArticle from '@/components/collect-article'
@@ -162,6 +180,14 @@ export default {
           })
         }
       })
+    },
+    async addComments(params) {
+      try {
+        const { data } = await addComment(params)
+        console.log(data)
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }

@@ -2,7 +2,7 @@
   <div class="comment-post">
     <van-field
       class="post-field"
-      v-model="message"
+      v-model.trim="message"
       rows="2"
       autosize
       type="textarea"
@@ -12,6 +12,8 @@
     />
     <van-button
       class="post-btn"
+      @click="onAddComment"
+      :disabled="!message.length"
     >发布</van-button>
   </div>
 </template>
@@ -20,7 +22,12 @@
 export default {
   name: 'CommentPost',
   components: {},
-  props: {},
+  props: {
+    target: {
+      type: [Number, String, Object],
+      required: true
+    }
+  },
   data () {
     return {
       message: ''
@@ -30,7 +37,15 @@ export default {
   watch: {},
   created () {},
   mounted () {},
-  methods: {}
+  methods: {
+    onAddComment() {
+      this.$emit('add-comment', {
+        target: this.target,
+        content: this.message,
+        art_id: null
+      })
+    }
+  }
 }
 </script>
 
