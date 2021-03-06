@@ -50,7 +50,7 @@
         <article-comment :source="articleInfo.art_id" @update-comment_total="comment_total = $event.total_count"/>
         <!-- 底部区域 -->
         <div class="article-bottom">
-          <van-button class="comment-btn" type="default" round size="small"
+          <van-button class="comment-btn" type="default" round size="small" @click="isPostShow=true"
             >写评论</van-button
           >
           <van-icon name="comment-o" :badge="comment_total" color="#777" />
@@ -79,6 +79,15 @@
         <van-button class="retry-btn" @click="loadArticleInfo">点击重试</van-button>
       </div>
       <!-- /加载失败：其它未知错误（例如网络原因或服务端异常） -->
+
+      <!-- 评论弹出层 -->
+      <van-popup
+          v-model="isPostShow"
+          position="bottom"
+        >
+          123
+        </van-popup>
+      <!-- /评论弹出层 -->
     </div>
   </div>
 </template>
@@ -110,7 +119,8 @@ export default {
       loading: true,
       errStatus: 0,
       followLoading: false,
-      comment_total: 0
+      comment_total: 0,
+      isPostShow: false
     }
   },
   created() {
