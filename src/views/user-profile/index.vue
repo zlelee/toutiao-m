@@ -15,12 +15,18 @@
       is-link
       @click="isUpdateNameShow = true"
     />
-    <van-cell title="性别"
+    <van-cell
+      title="性别"
       :value="user.gender === 0 ? '男' : '女'"
       is-link
       @click="isShowUpdateGender = true"
     />
-    <van-cell title="生日" :value="user.birthday" is-link />
+    <van-cell
+      title="生日"
+      :value="user.birthday"
+      is-link
+      @click="isShowUpdateBirthdy = true"
+    />
     <!-- 编辑昵称 -->
     <van-popup
       v-model="isUpdateNameShow"
@@ -35,10 +41,23 @@
     </van-popup>
     <!-- /编辑昵称 -->
     <!-- 编辑性别弹层 -->
-    <van-popup v-if="isShowUpdateGender" v-model="isShowUpdateGender" position="bottom">
-     <update-gender @update-gender="updateGender" @close="isShowUpdateGender = false" :value="user.gender"/>
+    <van-popup
+      v-if="isShowUpdateGender"
+      v-model="isShowUpdateGender"
+      position="bottom"
+    >
+      <update-gender
+        @update-gender="updateGender"
+        @close="isShowUpdateGender = false"
+        :value="user.gender"
+      />
     </van-popup>
     <!-- 编辑昵称弹层 -->
+    <!-- 编辑生日弹层 -->
+    <van-popup v-model="isShowUpdateBirthdy" position="bottom">
+      <update-birthday />
+    </van-popup>
+    <!-- 编辑生日弹层 -->
   </div>
 </template>
 
@@ -46,17 +65,20 @@
 import { getUserProfile } from '@/api/user'
 import UpdateName from './components/update-name.vue'
 import UpdateGender from './components/update-gender'
+import UpdateBirthday from './components/update-birthday'
 export default {
   name: 'UserProfile',
   components: {
     UpdateName,
-    UpdateGender
+    UpdateGender,
+    UpdateBirthday
   },
   data() {
     return {
       user: {},
       isUpdateNameShow: false,
-      isShowUpdateGender: false
+      isShowUpdateGender: false,
+      isShowUpdateBirthdy: false
     }
   },
   created() {
