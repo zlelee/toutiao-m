@@ -6,7 +6,7 @@
       left-arrow
       @click-left="$router.back()"
     ></van-nav-bar>
-    <van-cell title="头像" is-link>
+    <van-cell title="头像" is-link @click="isShowUpdatePhoto=true">
       <van-image class="avatar" fit="cover" round :src="user.photo" />
     </van-cell>
     <van-cell
@@ -58,6 +58,10 @@
       <update-birthday v-model="user.birthday" @close="isShowUpdateBirthdy=false"/>
     </van-popup>
     <!-- 编辑生日弹层 -->
+    <!-- 编辑头像弹层 -->
+    <van-popup v-model="isShowUpdatePhoto" position="bottom" style="height: 100%">
+      <update-photo  v-model="user.photo" @close="isShowUpdatePhoto=false"/>
+    </van-popup>
   </div>
 </template>
 
@@ -66,19 +70,22 @@ import { getUserProfile } from '@/api/user'
 import UpdateName from './components/update-name.vue'
 import UpdateGender from './components/update-gender'
 import UpdateBirthday from './components/update-birthday'
+import UpdatePhoto from './components/update-photo'
 export default {
   name: 'UserProfile',
   components: {
     UpdateName,
     UpdateGender,
-    UpdateBirthday
+    UpdateBirthday,
+    UpdatePhoto
   },
   data() {
     return {
       user: {},
       isUpdateNameShow: false,
       isShowUpdateGender: false,
-      isShowUpdateBirthdy: false
+      isShowUpdateBirthdy: false,
+      isShowUpdatePhoto: false
     }
   },
   created() {
