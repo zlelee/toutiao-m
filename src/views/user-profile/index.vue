@@ -6,7 +6,8 @@
       left-arrow
       @click-left="$router.back()"
     ></van-nav-bar>
-    <van-cell title="头像" is-link @click="isShowUpdatePhoto=true">
+    <input type="file" hidden ref="file" @change="onFileChange">
+    <van-cell title="头像" is-link @click="$refs.file.click()">
       <van-image class="avatar" fit="cover" round :src="user.photo" />
     </van-cell>
     <van-cell
@@ -60,7 +61,7 @@
     <!-- 编辑生日弹层 -->
     <!-- 编辑头像弹层 -->
     <van-popup v-model="isShowUpdatePhoto" position="bottom" style="height: 100%">
-      <update-photo  v-model="user.photo" @close="isShowUpdatePhoto=false"/>
+      <update-photo :img="img"  @close="isShowUpdatePhoto=false"/>
     </van-popup>
   </div>
 </template>
@@ -85,7 +86,8 @@ export default {
       isUpdateNameShow: false,
       isShowUpdateGender: false,
       isShowUpdateBirthdy: false,
-      isShowUpdatePhoto: false
+      isShowUpdatePhoto: false,
+      img: null
     }
   },
   created() {
@@ -107,6 +109,14 @@ export default {
     updateGender(newGender) {
       this.isShowUpdateGender = false
       this.user.gender = newGender
+    },
+    onFileChange() {
+      // 获取图片文件
+      const file = this.$refs.file.files[0]
+      // 获取blob 数据
+      this.img = window.URL.createObjectURL(file)
+      this.isShowUpdatePhoto = true
+      this.$refs.file.value = ''
     }
   }
 }
