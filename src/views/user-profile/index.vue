@@ -55,7 +55,7 @@
     <!-- 编辑昵称弹层 -->
     <!-- 编辑生日弹层 -->
     <van-popup v-model="isShowUpdateBirthdy" position="bottom">
-      <update-birthday />
+      <update-birthday v-model="user.birthday" @close="isShowUpdateBirthdy=false"/>
     </van-popup>
     <!-- 编辑生日弹层 -->
   </div>
