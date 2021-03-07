@@ -17,11 +17,14 @@
     <van-cell title="所有回复" />
 
     <!-- 评论的回复列表 -->
-    <article-comment type='c' :source="comment.com_id"/>
+    <article-comment type="c" :source="comment.com_id" />
     <!-- /评论的回复列表 -->
 
-    <!-- 底部 -->
-    <!-- /底部 -->
+    <!-- 回复评论 -->
+    <div class="post-wrap">
+      <van-button class="post-btn" size="small" round>写评论</van-button>
+    </div>
+    <!-- /回复评论 -->
   </div>
 </template>
 
@@ -51,4 +54,28 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.scroll-wrap {
+  position: fixed;
+  top: 92px;
+  right: 0;
+  bottom: 88px;
+  left: 0;
+  overflow-y: auto;
+}
+.post-wrap {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-top: 1px solid #d8d8d8;
+  .post-btn {
+    width: 60%;
+  }
+}
+</style>
