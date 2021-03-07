@@ -23,7 +23,7 @@
       position="bottom"
       style="height: 100%"
     >
-      <update-name :value="user.name" @close="isUpdateNameShow = false" />
+      <update-name @update-user_name="updateUserName" :value="user.name" @close="isUpdateNameShow = false" />
     </van-popup>
     <!-- /编辑昵称 -->
   </div>
@@ -54,6 +54,10 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    updateUserName(newName) {
+      this.isUpdateNameShow = false
+      this.user.name = newName
     }
   }
 }
