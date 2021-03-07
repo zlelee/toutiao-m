@@ -26,11 +26,11 @@
     </div>
     <!-- /回复评论 -->
       <!-- 评论弹出层 -->
-        <van-popup v-model="isPostShow" position="bottom">
+        <!-- <van-popup v-model="isPostShow" position="bottom">
           <comment-post
             :target="comment.com_id"
           />
-        </van-popup>
+        </van-popup> -->
         <!-- /评论弹出层 -->
   </div>
 </template>
@@ -38,13 +38,13 @@
 <script>
 import commentItem from './comment-item'
 import articleComment from './article-comment'
-import commentPost from './comment-post'
+// import commentPost from './comment-post'
 export default {
   name: 'CommentReply',
   components: {
     commentItem,
-    articleComment,
-    commentPost
+    articleComment
+    // commentPost
   },
   props: {
     comment: {

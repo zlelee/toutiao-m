@@ -137,7 +137,7 @@ export default {
   },
   provide: () => {
     return {
-      articleId: this.articleInfo.art_id
+      // articleId: this.articleInfo.art_id
     }
   },
   components: {
