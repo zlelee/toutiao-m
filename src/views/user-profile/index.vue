@@ -23,7 +23,7 @@
       position="bottom"
       style="height: 100%"
     >
-      <update-name @close="isUpdateNameShow = false" />
+      <update-name :value="user.name" @close="isUpdateNameShow = false" />
     </van-popup>
     <!-- /编辑昵称 -->
   </div>

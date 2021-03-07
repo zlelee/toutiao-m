@@ -19,10 +19,14 @@
 export default {
   name: 'UpdateName',
   props: {
+    value: {
+      type: String,
+      required: true
+    }
   },
   data () {
     return {
-      message: ''
+      message: this.value
     }
   },
 
