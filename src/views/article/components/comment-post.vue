@@ -23,6 +23,12 @@
 export default {
   name: 'CommentPost',
   components: {},
+  inject: {
+    articleId: {
+      type: [Number, String, Object],
+      default: null
+    }
+  },
   props: {
     target: {
       type: [Number, String, Object],
@@ -41,7 +47,7 @@ export default {
   methods: {
     onAddComment() {
       this.$emit('add-comment', {
-        target: this.target,
+        target: this.target.toString(),
         content: this.message,
         art_id: null
       })

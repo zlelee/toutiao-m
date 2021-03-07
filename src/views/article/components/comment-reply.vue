@@ -22,20 +22,29 @@
 
     <!-- 回复评论 -->
     <div class="post-wrap">
-      <van-button class="post-btn" size="small" round>写评论</van-button>
+      <van-button class="post-btn" size="small" round @click="isPostShow=true">写评论</van-button>
     </div>
     <!-- /回复评论 -->
+      <!-- 评论弹出层 -->
+        <van-popup v-model="isPostShow" position="bottom">
+          <comment-post
+            :target="comment.com_id"
+          />
+        </van-popup>
+        <!-- /评论弹出层 -->
   </div>
 </template>
 
 <script>
 import commentItem from './comment-item'
 import articleComment from './article-comment'
+import commentPost from './comment-post'
 export default {
   name: 'CommentReply',
   components: {
     commentItem,
-    articleComment
+    articleComment,
+    commentPost
   },
   props: {
     comment: {
@@ -44,7 +53,9 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      isPostShow: false
+    }
   },
   computed: {},
   watch: {},

@@ -135,6 +135,11 @@ export default {
       required: true
     }
   },
+  provide: () => {
+    return {
+      articleId: this.articleInfo.art_id
+    }
+  },
   components: {
     followUser,
     collectArticle,
