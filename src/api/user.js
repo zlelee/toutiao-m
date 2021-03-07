@@ -64,7 +64,7 @@ export const getUserProfile = () => {
 }
 
 // 编辑用户资料
-export const updateUserName = data => {
+export const updateUser = data => {
   return request({
     method: 'PATCH',
     url: '/app/v1_0/user/profile',

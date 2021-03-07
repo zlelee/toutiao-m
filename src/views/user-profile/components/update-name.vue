@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { updateUserName } from '@/api/user'
+import { updateUser } from '@/api/user'
 export default {
   name: 'UpdateName',
   props: {
@@ -47,7 +47,7 @@ export default {
         if (!this.localName.length) {
           this.$toast('用户昵称不能为空')
         }
-        await updateUserName({
+        await updateUser({
           name: this.localName
         })
         this.$emit('update-user_name', this.localName)
