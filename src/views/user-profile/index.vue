@@ -23,7 +23,7 @@
       position="bottom"
       style="height: 100%"
     >
-      <update-name @close="isUpdateNameShow = false" />
+    编辑昵称
     </van-popup>
     <!-- /编辑昵称 -->
   </div>
@@ -31,11 +31,9 @@
 
 <script>
 import { getUserProfile } from '@/api/user'
-import UpdateName from './components/update-name.vue'
 export default {
   name: 'UserProfile',
   components: {
-    UpdateName
   },
   data() {
     return {
