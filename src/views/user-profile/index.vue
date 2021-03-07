@@ -65,5 +65,8 @@ export default {
     width: 60px;
     height: 60px;
   }
+  .van-popup {
+  background: #f5f7f9;
+}
 }
 </style>
