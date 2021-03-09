@@ -61,7 +61,7 @@
     <!-- 编辑生日弹层 -->
     <!-- 编辑头像弹层 -->
     <van-popup v-model="isShowUpdatePhoto" position="bottom" style="height: 100%">
-      <update-photo :img="img"  @close="isShowUpdatePhoto=false"/>
+      <update-photo v-if="isShowUpdatePhoto" :img="img" @update-avatar="user.photo=$event"  @close="isShowUpdatePhoto=false"/>
     </van-popup>
   </div>
 </template>
